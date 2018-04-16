@@ -24,6 +24,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
         
+        navigationItem.title = "Wybierz pierwszy punkt"
+        
         
     }
     
@@ -76,7 +78,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         dotNodes.append(dotNode)
         
-        if dotNodes.count >= 2 {
+        if dotNodes.count == 1 {
+            
+            navigationItem.title = "Wybierz drugi punkt"
+            
+        }
+        
+        if dotNodes.count == 2 {
             
             calculate()
             
@@ -96,6 +104,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let distance = sqrt(pow(a,2) + pow(b,2) + pow(c,2))
         print(distance)
         
+        navigationItem.title = String(distance*1.03)
+        
     }
+    
+    @IBAction func startOver(_ sender: UIBarButtonItem) {
+        
+        if !dotNodes.isEmpty {
+            
+            for dot in dotNodes {
+                
+                dot.removeFromParentNode()
+                
+            }
+            
+        }
+        
+        dotNodes.removeAll()
+        
+        navigationItem.title = "Wybierz pierwszy punkt"
+        
+    }
+    
 
 }
